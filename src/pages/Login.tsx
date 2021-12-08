@@ -1,6 +1,10 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  initializeAuth,
+  signInWithEmailAndPassword,
+  getAuth
+} from 'firebase/auth'
 
 import useFirebaseContext from '../context/firebase'
 import { DASHBOARD, SIGN_UP } from '../constants/routes'
@@ -23,9 +27,9 @@ export default function Login() {
     event.preventDefault()
 
     try {
-      const auth = initializeAuth(firebaseApp)
-      const credentialUser = await signInWithEmailAndPassword(auth, email, password)
-      console.log(credentialUser)
+      let auth = getAuth(firebaseApp)
+      if (!auth) auth = initializeAuth(firebaseApp)
+      await signInWithEmailAndPassword(auth, email, password)
       history.push(DASHBOARD)
     } catch (error) {
       setEmail('')

@@ -9,12 +9,10 @@ import { doc, setDoc } from 'firebase/firestore'
 
 import { DASHBOARD, LOGIN } from '../constants/routes'
 import { usernameExists } from '../services/firebase'
-import useFirebaseContext from '../context/firebase'
 import { firebaseDb } from '../lib/firebase'
 
 export default function SignUp() {
   const history = useHistory()
-  const { firebaseApp } = useFirebaseContext()
 
   const [username, setUsername] = useState('')
   const [fullName, setFullName] = useState('')
